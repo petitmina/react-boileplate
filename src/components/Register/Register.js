@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Register.module.css';
 
-const Register = () => {
+function Register () {
     const [Name, setName] = useState('');
     const [Email, setEmail] = useState('');
     const [Password, setPassword] = useState('');

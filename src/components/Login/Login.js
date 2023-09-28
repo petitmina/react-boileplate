@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from './Login.module.css'
 
-const Login = () => {
+function Login  () {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
 
@@ -15,6 +15,34 @@ const Login = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
+
+    if(!Email) {
+      return alert("ID를 입력하세요.");
+    } 
+     else if(!Password) {
+      return alert("Password를 입력하세요.");
+     }
+
+    fetch("http://localhost:3000/login", {
+      method:"POST",
+      header: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Email: '1234@naver.com',
+        Password: '1234',
+      }),
+    }) 
+    .then((response) =>response.json())
+    .then((response) => {
+      if(response.token) {
+        localStorage.setItem('wtw-token', response.token);
+        this.props.history.push('/register');
+      } else if (!response.token) {
+        this.props.history.push('/login')
+      }
+    })
+
   }
 
   return (
